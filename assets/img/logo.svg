@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+  <title id="title">Processing Complex Data course logo</title>
+  <desc id="desc">A minimalist abstract logo showing noisy complex observations being processed into a smooth analytical path.</desc>
+  <defs>
+    <style>
+      .data { fill: #a6a000; }
+      .structure { fill: none; stroke: #3f4298; stroke-width: 5; }
+      .link { fill: none; stroke: #777; stroke-width: 4; stroke-linecap: round; opacity: 0.65; }
+      .model { fill: none; stroke: #414141; stroke-width: 8; stroke-linecap: round; }
+      .alt { fill: none; stroke: #3f4298; stroke-width: 7; stroke-linecap: round; stroke-dasharray: 4 18; }
+    </style>
+  </defs>
+
+  <g class="link">
+    <path d="M112 184 145 223 184 202 213 250 189 302 240 335 264 392" />
+    <path d="M430 365 457 315 493 337 520 282" />
+  </g>
+
+  <g class="data">
+    <circle cx="84" cy="196" r="18" />
+    <circle cx="115" cy="176" r="15" />
+    <circle cx="132" cy="213" r="17" />
+    <circle cx="166" cy="198" r="19" />
+    <circle cx="198" cy="230" r="15" />
+    <circle cx="145" cy="251" r="16" />
+    <circle cx="176" cy="281" r="18" />
+    <circle cx="210" cy="309" r="16" />
+    <circle cx="185" cy="342" r="15" />
+    <circle cx="226" cy="360" r="18" />
+    <circle cx="254" cy="405" r="16" />
+    <circle cx="292" cy="438" r="18" />
+    <circle cx="330" cy="462" r="15" />
+    <circle cx="384" cy="447" r="16" />
+    <circle cx="414" cy="403" r="18" />
+    <circle cx="437" cy="361" r="15" />
+    <circle cx="463" cy="330" r="19" />
+    <circle cx="489" cy="292" r="16" />
+    <circle cx="522" cy="256" r="15" />
+    <circle cx="104" cy="239" r="14" />
+    <circle cx="150" cy="307" r="15" />
+    <circle cx="238" cy="436" r="14" />
+    <circle cx="357" cy="497" r="16" />
+    <circle cx="442" cy="444" r="14" />
+    <circle cx="501" cy="356" r="15" />
+  </g>
+
+  <g class="structure">
+    <rect x="70" y="226" width="34" height="34" rx="5" />
+    <rect x="214" y="395" width="35" height="35" rx="5" />
+    <rect x="452" y="286" width="36" height="36" rx="5" />
+    <path d="M91 187c56 37 88 100 120 166 28 58 64 99 111 115 70 24 126-31 171-134" />
+  </g>
+
+  <path class="model" d="M85 182c95 55 121 167 175 246 29 43 70 68 116 55 82-24 101-161 158-266" />
+  <path class="alt" d="M89 207c94 49 123 154 176 226 32 43 74 66 121 49 81-30 112-176 194-321" />
+</svg>

@@ -1,6 +1,7 @@
 title: PCD
 description: Materials for the Methodology and Statistics master course <i>Processing Complex Data</i>.
 theme: jekyll-theme-minimal
+logo: /assets/img/logo.svg
 github:
     is_project_page: false
 
