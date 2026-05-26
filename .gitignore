@@ -1,0 +1,45 @@
+# Data — too large for the repo (e.g. NSD slices, ~534 MB)
+data/
+
+# Jekyll / GitHub Pages build artifacts
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+Gemfile.lock
+
+# Course admin/source notes
+admin/
+
+# R
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.r_libs/
+*.Rproj
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Quarto
+*_files/
+*_cache/
+.quarto/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Feasibility checks (local-only)
+project_feasibility_checks/

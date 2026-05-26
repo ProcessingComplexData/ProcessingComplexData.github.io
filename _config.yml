@@ -1,0 +1,41 @@
+title: PCD
+description: Materials for the Methodology and Statistics master course <i>Processing Complex Data</i>.
+theme: jekyll-theme-minimal
+github:
+    is_project_page: false
+
+# Auto-rewrite [text](file.md) links to [text](file.html) on the deployed site.
+# Whitelisted on GitHub Pages: https://pages.github.com/versions/
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: false
+
+# Make Jekyll render every .md file in the repo as a page, even when the
+# source file has no YAML front matter.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+include:
+  - README.md
+
+# Don't try to render LICENSE, configs, or anything outside the source.
+exclude:
+  - LICENSE
+  - .DS_Store
+  - .mypy_cache
+  - .ruff_cache
+  - .sass-cache
+  - .r_libs
+  - admin
+  - data
+  - project_feasibility_checks
+  - "*.lock"
+  - Gemfile
+  - Gemfile.lock
