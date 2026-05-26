@@ -28,8 +28,6 @@ The narrative spine of the course is *from raw traces to defensible claims*. Eac
 
 ## Group projects
 
-Six project variants. Each group works through the same four-week workflow (`week1_explore.qmd`, `week2_operationalize_clean.qmd`, `week3_model.qmd`, `week4_storytelling.qmd`) on its own data family, and teaches the same six dimensions to the rest of the class: **data structure, storage system, file formats, encoding, model, and key aspects**.
-
 | Variant              | Data family                                                    | Example research question                                                                                  |
 | :------------------- | :------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
 | Geospatial           | [`projects/geospatial.md`](projects/geospatial.md)             | What is the relation between municipal land use and population composition?                                |
@@ -38,7 +36,3 @@ Six project variants. Each group works through the same four-week workflow (`wee
 | Relational database  | [`projects/relational_database.md`](projects/relational_database.md) | Which driver, constructor, grid, circuit, and season characteristics are associated with F1 finishing points? |
 | Time series          | [`projects/time_series.md`](projects/time_series.md)           | How does an fMRI signal change across NSD scan sessions? |
 | API data             | [`projects/api_data.md`](projects/api_data.md)                 | Which study attributes are associated with completed versus ongoing clinical trials?                       |
-
-## Assessment
-
-Assessment is based on the group project, which runs for the full duration of the course. The project grade is the final course grade. Each group submits a short structured report and gives a final presentation; both are evaluated on the raw-to-clean-to-model pipeline, the methodological choices, and the limits of the claim.
