@@ -8,6 +8,11 @@ Contrary to what most introductory data science and statistics courses teach, re
 
 The narrative spine of the course is *from raw traces to defensible claims*. Each group works through a single pipeline: raw source → operationalized clean object → baseline model with one sensitivity check → presentation.
 
+## Course materials
+
+- [Course manual](course_manual.md)
+- [Project guidelines](project_guidelines.md)
+
 ## Lectures
 
 | Week | Title | Lecture |

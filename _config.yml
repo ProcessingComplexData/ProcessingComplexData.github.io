@@ -3,7 +3,6 @@ description: Materials for the Methodology and Statistics master course Processi
 sidebar: >-
   <span class="sidebar-summary">This webpage contains all materials for the Methodology and Statistics master course <i>Processing Complex Data</i> (PCD). The materials on this website are <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0 licensed</a>.</span>
   <span class="sidebar-block"><strong>Lecturer</strong><br><a href="https://javier.science/">Javier Garcia-Bernardo</a><br>Assistant Professor of Social Data Science<br>Department of Methodology &amp; Statistics<br>Utrecht University</span>
-  <span class="sidebar-block sidebar-links"><a href="/course_manual.html">Course manual</a><a href="/project_guidelines.html">Project guidelines</a><a href="https://processingcomplexdata.github.io/">Course website</a></span>
 theme: jekyll-theme-minimal
 logo: /assets/img/logo.svg
 github:
