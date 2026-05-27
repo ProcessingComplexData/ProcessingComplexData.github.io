@@ -5,7 +5,7 @@
 - Programming language: **`Python` suggested for raw-data processing** (BIDS/NIfTI/event-file handling: `nibabel`, `pybids`, `nilearn`, `numpy`, `pandas`, and the NSD-specific `nsdcode` / `nsd_access`). **`R` suggested for the modeling and analysis stage** (`lme4`, `nlme`, `tidyverse`) once Week 2 has produced the participant-session-ROI panel. Students may stay in one language throughout if they prefer, but the default split is Python → panel → R.
 - Expert contact: TBD, Ben Harvey?
 
-> **Canonical course conventions live in [`project_guidelines.md`](../project_guidelines.md).** That file is the source of truth for the four required workflow files (`week1_explore.qmd`, `week2_operationalize_clean.qmd`, `week3_model.qmd`, `week4_storytelling.qmd`), the `data/model_data.rds` -> `data/model_results.rds` pipeline, the raw-data policy, quality-check requirements, decision logs, and contribution tracking. Read it before starting and treat anything below as project-specific guidance on top of those conventions.
+> **Canonical course conventions live in [project_guidelines.md](../project_guidelines.md).** That file is the source of truth for the four required workflow files (`week1_explore.qmd`, `week2_operationalize_clean.qmd`, `week3_model.qmd`, `week4_storytelling.qmd`), the `data/model_data.rds` -> `data/model_results.rds` pipeline, the raw-data policy, quality-check requirements, decision logs, and contribution tracking. Read it before starting and treat anything below as project-specific guidance on top of those conventions.
 
 ## Tutorial framing
 
