@@ -1,39 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
   <title id="title">Processing Complex Data course logo</title>
-  <desc id="desc">A minimalist map of the Netherlands with a network overlay and a time arrow, representing complex data across space, relations, and time.</desc>
+  <desc id="desc">A contour map of the Netherlands with a network inside it and a separate time axis below.</desc>
+  <!-- Netherlands contour simplified from Natural Earth public-domain country boundaries. -->
   <defs>
     <style>
-      .map { fill: #f7f7f2; stroke: #3f4146; stroke-width: 7; stroke-linejoin: round; }
+      .map { fill: none; stroke: #3f4146; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
       .edge { fill: none; stroke: #3f4298; stroke-width: 5; stroke-linecap: round; opacity: 0.86; }
       .node { fill: #a6a000; stroke: #fff; stroke-width: 5; }
-      .signal { fill: none; stroke: #777; stroke-width: 4; stroke-dasharray: 5 12; stroke-linecap: round; opacity: 0.7; }
       .time { fill: none; stroke: #3f4146; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
       .label { fill: #3f4146; font: 34px Arial, Helvetica, sans-serif; }
     </style>
+    <path id="nl-contour" d="M498.0 102.3L497.8 139.7L485.7 166.0L483.4 192.7L455.6 194.6L456.2 206.0L449.5 208.7L453.5 220.8L477.5 222.4L484.4 235.4L482.4 255.7L449.7 283.0L462.4 296.6L453.7 305.8L422.4 311.8L419.3 317.7L399.1 306.2L401.8 314.5L380.9 318.5L381.7 331.2L396.5 344.4L406.3 372.5L405.2 389.7L392.5 409.8L400.9 418.8L381.5 437.1L373.6 435.4L375.7 447.1L387.6 445.8L393.2 455.8L384.4 472.9L386.8 479.6L360.1 479.0L352.5 467.5L365.4 448.0L371.5 418.2L347.3 410.4L340.3 398.5L314.6 402.7L297.2 369.7L286.3 382.6L272.6 379.3L278.2 379.3L274.1 366.9L260.3 378.6L252.0 378.3L246.7 370.1L236.9 374.9L238.3 388.8L201.8 373.3L185.9 382.7L173.2 373.1L158.9 372.4L151.7 357.9L186.1 349.2L192.3 353.5L190.0 358.7L203.4 361.6L211.6 374.4L228.2 374.1L226.7 365.0L200.8 352.6L221.1 352.6L212.4 345.1L218.3 338.1L200.2 319.3L190.0 322.6L189.2 318.4L209.1 314.3L203.4 292.5L215.1 289.8L249.0 239.7L271.0 144.3L277.6 144.3L282.9 153.9L301.9 146.3L329.8 124.7L336.1 106.0L349.4 93.6L385.5 78.0L464.1 71.3L470.8 86.2L498.0 102.3Z M141.6 385.1L159.4 378.8L186.5 389.9L197.8 385.6L200.5 379.8L213.2 387.5L222.5 386.2L221.2 391.8L213.0 400.6L197.2 410.0L184.2 410.8L181.2 403.3L165.7 397.9L156.9 399.3L155.7 405.5L145.5 404.5L142.0 398.2L141.6 385.1Z M205.3 338.1L210.9 340.5L210.2 344.4L198.2 347.5L184.2 336.0L174.1 338.9L173.1 332.2L184.7 328.7L196.3 329.8L205.3 338.1Z M284.7 122.6L284.7 127.9L275.7 139.3L269.3 138.9L269.9 126.7L281.1 111.0L284.4 112.0L284.7 122.6Z M283.4 106.0L293.4 95.5L304.3 92.6L286.3 107.3L283.4 106.0Z M333.9 74.3L348.9 70.8L338.7 74.8L338.0 77.6L313.9 86.1L310.1 83.7L317.8 77.9L333.9 74.3Z M357.1 68.6L383.1 69.7L357.5 74.4L353.6 71.5L357.1 68.6Z M406.9 62.4L418.7 63.5L399.6 70.8L398.7 66.6L406.9 62.4Z M428.2 55.2L434.6 57.2L428.2 55.2Z" />
+    <clipPath id="nl-clip">
+      <use href="#nl-contour" />
+    </clipPath>
   </defs>
 
-  <path class="map" d="M323 77c-25 19-21 44-37 60-17 17-43 16-55 38-12 23 8 44 1 68-6 22-31 31-32 56-1 31 34 43 38 75 4 29-21 43-9 69 11 23 44 22 59 47 15 24 3 56 27 70 23 14 53-10 75-1 28 11 49 45 78 34 25-10 20-45 42-62 19-15 50-12 59-38 9-27-22-43-19-71 3-26 34-38 29-65-5-28-43-31-53-58-9-24 10-49-6-71-17-23-49-13-70-32-20-18-17-52-42-64-23-11-42 11-66 2-22-8-29-38-50-57z" />
+  <use href="#nl-contour" class="map" />
 
-  <path class="signal" d="M221 199c77-41 161-41 237 3" />
-  <path class="edge" d="M282 207 348 179 420 214 398 300 316 325 257 277 282 207" />
-  <path class="edge" d="M257 277 222 354 284 430 374 408 454 350 398 300" />
-  <path class="edge" d="M316 325 374 408" />
-  <path class="edge" d="M348 179 316 325" />
+  <g clip-path="url(#nl-clip)">
+    <path class="edge" d="M285.7 235.0L305.9 276.9L377.9 292.9L470.3 257.1" />
+    <path class="edge" d="M285.7 235.0L368.7 109.0L439.8 106.2L470.3 257.1" />
+    <path class="edge" d="M246.2 302.0L305.9 276.9L338.1 375.0L358.6 464.3" />
+    <path class="edge" d="M229.8 279.9L246.2 302.0L338.1 375.0L377.9 292.9" />
+    <path class="edge" d="M229.8 279.9L285.7 235.0" />
+  </g>
 
-  <circle class="node" cx="282" cy="207" r="18" />
-  <circle class="node" cx="348" cy="179" r="17" />
-  <circle class="node" cx="420" cy="214" r="18" />
-  <circle class="node" cx="398" cy="300" r="20" />
-  <circle class="node" cx="316" cy="325" r="18" />
-  <circle class="node" cx="257" cy="277" r="17" />
-  <circle class="node" cx="222" cy="354" r="17" />
-  <circle class="node" cx="284" cy="430" r="19" />
-  <circle class="node" cx="374" cy="408" r="18" />
-  <circle class="node" cx="454" cy="350" r="17" />
+  <circle class="node" cx="285.7" cy="235.0" r="15" />
+  <circle class="node" cx="246.2" cy="302.0" r="15" />
+  <circle class="node" cx="229.8" cy="279.9" r="13" />
+  <circle class="node" cx="305.9" cy="276.9" r="16" />
+  <circle class="node" cx="368.7" cy="109.0" r="14" />
+  <circle class="node" cx="439.8" cy="106.2" r="14" />
+  <circle class="node" cx="470.3" cy="257.1" r="15" />
+  <circle class="node" cx="377.9" cy="292.9" r="15" />
+  <circle class="node" cx="338.1" cy="375.0" r="16" />
+  <circle class="node" cx="358.6" cy="464.3" r="14" />
 
-  <path class="time" d="M145 556h334" />
-  <path class="time" d="M479 556l-32-25" />
-  <path class="time" d="M479 556l-32 25" />
-  <path class="time" d="M181 544v24M257 544v24M333 544v24M409 544v24" />
-  <text class="label" x="224" y="528">time</text>
+  <path class="time" d="M165 555h310" />
+  <path class="time" d="M475 555l-31-24" />
+  <path class="time" d="M475 555l-31 24" />
+  <path class="time" d="M205 542v26M280 542v26M355 542v26M430 542v26" />
+  <text class="label" x="280" y="615">time</text>
 </svg>
