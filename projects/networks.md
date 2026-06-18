@@ -40,6 +40,9 @@ Students should learn three main things about these data:
 
 ### Knowledge sources
 - C/R/Python packages `igraph`,
+- Introduction to networks
+  - Chapter 0 of "A First Course in Network Science": https://github.com/CambridgeUniversityPress/FirstCourseNetworkScience/blob/master/sample/chapters/chapter0.pdf
+  - App: https://javier.science/marimo_intro_networks/
 - Guide for reference models: https://pubmed.ncbi.nlm.nih.gov/34216192/
 - Observed network vs latent network: https://www.nature.com/articles/s41467-022-34267-9
 
