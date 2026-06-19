@@ -9,7 +9,7 @@
 
 ## Tutorial framing
 
-Geospatial data are complex because observations are tied to coordinate systems, geometric boundaries, raster surfaces, and spatial dependence rather than arriving as independent rows in a single analysis-ready table.
+Geospatial data are complex because observations are tied to coordinate systems, geometric boundaries, raster surfaces, and spatial dependence rather than arriving as independent rows in a single, analysis-ready, table.
 
 Students should learn three main things about these data:
 1. How spatial data are represented through vector geometries, raster grids, coordinate reference systems, spatial identifiers, and formats or services such as GeoJSON, Shapefiles, GeoTIFF, WFS, and WMS.
@@ -29,22 +29,22 @@ Students should learn three main things about these data:
 
 ## Resources
 ### Data sources
-- [PDOK (Public services on the map)](https://www.pdok.nl/), specifically:
+- [PDOK (Publieke Dienstverlening Op de Kaart, Public Services On the Map)](https://www.pdok.nl/), specifically:
   - [Statistics Netherlands' areal boundaries data](https://www.pdok.nl/introductie/-/article/cbs-gebiedsindelingen)
   - [Wageningen university's land-use data](https://www.pdok.nl/introductie/-/article/landelijk-grondgebruik-nederland-lgn-)
-- [Statistics Netherlands core figures](https://www.cbs.nl/nl-nl/maatwerk/2025/40/kerncijfers-wijken-en-buurten-2025)
+- [Statistics Netherlands Key figures for districts and neighborhoods](https://www.cbs.nl/nl-nl/maatwerk/2025/40/kerncijfers-wijken-en-buurten-2025)
 
-Feel free to use different sources if you want.
+Feel free to use additional sources if you want.
 
 ### Knowledge sources
 - R packages `sf` and `terra`
 - The book [Geocomputation with R](https://r.geocompx.org/) (e.g. chapter on raster-vector interactions and data I/O)
-- Find your own resources on spatial autoregressive models: CAR.
+- Find your own resources on spatial autoregressive models: conditional autoregressive model (CAR) and simultaneously autoregressive model (SAR).
 
 
 ## Week-by-week
 ### Week 1:
-Start from raw spatial files or web services, identify the data generating process, and explain vector/raster or point/polygon structure before doing any modeling.
+Start from raw spatial files or web services, identify the data generating/collection process, and explain vector/raster or point/polygon structure before doing any modeling. Visualize the data in the most appropriate way.
 - What is the standard key identifier for municipalities in the Netherlands?
 - Can we connect directly to PDOK from R to retrieve all municipalities' boundaries? Or can we download the information?
 - Can we connect to PDOK from R to retrieve land-use information?
@@ -57,9 +57,10 @@ Prepare for the roundtable of week 2:
 
 ### Week 2
 Operationalize the research question by turning raw geometry-linked files into one analysis table, and document why the data were stored in that format.
-- How can we create a tidy dataset of municipalities with their land-use and population characteristics to perform statistical modeling?
 - What, exactly, does land-use mean?
 - What dimensions of population composition do we find relevant?
+- How can we create a tidy dataset of municipalities with their land-use and population characteristics to perform statistical modeling?
+
 
 Prepare for the roundtable of week 3:
 - Explain the main spatial operations: spatial joins, aggregation from grid or point data, etc.
@@ -71,7 +72,7 @@ Fit models, explain preprocessing decisions, and show one sensitivity check to s
 - Do we need to do some transformations, what type, GLM? Or just linear model?
 - Fit a baseline (non-spatial) model first, then test residual spatial dependence (e.g. Moran's I on residuals). Only escalate to SAR/CAR if the baseline residuals show meaningful spatial structure.
 - Which parameters, specifically, answer our research question?
-- Sensitivity check: show one Modifiable Areal Unit Problem (MAUP) sensitivity — re-run the analysis at a different aggregation level (e.g. neighbourhood vs municipality) or with a different boundary definition, and report whether the conclusion changes.
+- Sensitivity check: show one Modifiable Areal Unit Problem (MAUP) sensitivity, i.e., re-run the analysis at a different aggregation level (e.g. neighbourhood vs municipality) or with a different boundary definition, and report whether the conclusion changes.
 
 
 Prepare for the roundtable of week 4:
