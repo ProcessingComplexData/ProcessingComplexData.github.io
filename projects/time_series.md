@@ -10,7 +10,7 @@
 
 ![NSD eye-tracking movement over repeated image presentations](/assets/img/projects/nsd_eye_tracking_fixation_candidates.png)
 
-*Example from an NSD eye-tracking run: the background is the displayed NSD imagery target, blue traces show valid gaze samples from eight 3-second viewing windows (24 seconds total), and red circles show low-velocity centers under one explicit filtering rule. The model should use the time series, not the overlay.*
+*Example from an NSD eye-tracking run: the background is the actual displayed NSD imagery target, and gaze is mapped into the 8.4 x 8.4 degree stimulus frame. The design file lists eight 3-second presentations of this target image; six have usable processed gaze samples in this extract. Red circles show low-velocity centers under one explicit filtering rule. The model should use the time series, not the overlay.*
 
 ## Tutorial framing
 
@@ -83,6 +83,12 @@ subset is:
 - One or a few small target images from:
   `s3://natural-scenes-dataset/nsddata/experiments/nsdimagery/rawtargetimages/`
 
+Here "repeated target image" means that the same stimulus appears multiple times
+within the run. In the example figure, `shared0385_nsd28752.png` is scheduled at
+eight separate onsets in run 2. Each onset starts a 3-second image-presentation
+period, followed by a 1-second rest/fixation period. These are repeated
+presentations of the same image, not eight different screen regions.
+
 Do **not** download the full 37 GB `nsd_stimuli.hdf5`, all subjects, all EDF
 files, or any fMRI beta files for this project.
 
@@ -143,6 +149,8 @@ Week 1 questions:
 - What is the sampling rate after preprocessing?
 - Which columns represent time, x gaze, y gaze, and pupil area?
 - Which file tells us when the target image is on screen?
+- What is a target-image presentation, and how is it different from a screen
+  region or image file?
 - What does the device-native EDF file preserve, what does the NSD `.mat`
   preprocessing make easier, and what are the consequences of relying on
   proprietary binary formats rather than open, documented, analysis-ready
