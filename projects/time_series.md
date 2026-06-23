@@ -10,7 +10,7 @@
 
 ![NSD eye-tracking movement over repeated image presentations](/assets/img/projects/nsd_eye_tracking_fixation_candidates.png)
 
-*Example from an NSD eye-tracking run: the background is the actual displayed NSD imagery target, and gaze is mapped into the 8.4 x 8.4 degree stimulus frame. The design file lists eight 3-second presentations of this target image; six have usable processed gaze samples in this extract. Red circles show low-velocity centers under one explicit filtering rule. The model should use the time series, not the overlay.*
+*Example from an NSD eye-tracking run: the left panel shows only gaze traces mapped into the 8.4 x 8.4 degree stimulus frame. The right panel shows the filtered velocity time series and candidate fixation intervals under one explicit rule. The design file lists eight 3-second presentations of this target image; six have usable processed gaze samples in this extract.*
 
 ## Tutorial framing
 
