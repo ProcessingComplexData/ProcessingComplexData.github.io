@@ -91,6 +91,24 @@ mask.
 
 ### ROI codes
 
+These ROI labels are **retinotopic visual cortex regions**: mapped areas near
+the back of the brain, mostly in occipital cortex, that respond to visual
+information. They are not arbitrary labels. They tell students which voxels
+belong to early visual-processing areas.
+
+| ROI label | Brain area | Very short interpretation |
+|---|---|---|
+| `V1v` / `V1d` | Primary visual cortex, ventral/dorsal parts | First major cortical stage of visual processing; sensitive to edges, orientation, contrast, and spatial layout. |
+| `V2v` / `V2d` | Secondary visual cortex, ventral/dorsal parts | Early visual processing beyond V1; involved in contours, texture, and figure-ground organization. |
+| `V3v` / `V3d` | Third visual area, ventral/dorsal parts | Intermediate visual features, including aspects of form, motion, and depth. |
+| `hV4` | Human V4, ventral occipital visual cortex | Often associated with color, shape, and object-related visual processing. |
+
+Here, `v` means **ventral** and `d` means **dorsal**. For example, `V1v` is the
+ventral portion of V1 and `V1d` is the dorsal portion of V1. The class project
+does not require students to make strong neuroscience claims from these labels;
+the main goal is to learn how a voxel-level ROI mask links brain coordinates to
+an analysis table.
+
 For the core question, combine:
 
 - V1 = ROI codes `1` and `2` (`V1v`, `V1d`)
