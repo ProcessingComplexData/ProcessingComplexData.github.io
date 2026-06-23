@@ -8,9 +8,9 @@
 
 > **Canonical course conventions live in [project_guidelines.md](../project_guidelines.md).** That file is the source of truth for the four required workflow files (`week1_explore.qmd`, `week2_operationalize_clean.qmd`, `week3_model.qmd`, `week4_storytelling.qmd`), the `data/model_data.rds` -> `data/model_results.rds` pipeline, the raw-data policy, quality-check requirements, decision logs, and contribution tracking. Read it before starting and treat anything below as project-specific guidance on top of those conventions.
 
-![NSD eye-tracking movement over repeated image presentations](/assets/img/projects/nsd_eye_tracking_fixation_candidates.png)
+![NSD eye-tracking movement over repeated image presentations](/assets/img/projects/nsd_eye_tracking_repetition_trace_check.png)
 
-*Example from an NSD eye-tracking run: the left panel shows only gaze traces mapped into the 8.4 x 8.4 degree stimulus frame. The right panel shows the filtered velocity time series and candidate fixation intervals under one explicit rule. The design file lists eight 3-second presentations of this target image; six have usable processed gaze samples in this extract.*
+*Example from an NSD eye-tracking run: gaze traces from six usable 3-second repeated presentations of the same target image. Each panel maps gaze onto the actual image as a 4.0 x 4.0 degree square, matching the helper relationship `x_plot = (x + 2) / 4` and `y_plot = (2 - y) / 4`. Color shows seconds after image onset; white and black dots mark the first and last usable samples.*
 
 ## Tutorial framing
 
