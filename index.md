@@ -4,7 +4,7 @@
 
 ## About the course
 
-Contrary to what most introductory data science and statistics courses teach, real-world scientific data come in an enormous variety of formats, sizes, structures, and procedures — from simple tables to spatiotemporal arrays, normalized relational schemas, nested API responses, raw scraped web pages, networks, and domain-specific scientific standards. This course gives students hands-on experience with handling, processing, and modelling six families of complex data, in a hackathon-style format where each group goes deep on one data type and teaches the rest of the class.
+Contrary to what most introductory data science and statistics courses teach, real-world scientific data come in an enormous variety of formats, sizes, structures, and procedures — from simple tables to spatiotemporal arrays, normalized relational schemas, nested API responses, raw scraped web pages, networks, sampled time series, and domain-specific scientific standards. This course gives students hands-on experience with handling, processing, and modelling several families of complex data, in a hackathon-style format where each group goes deep on one data type and teaches the rest of the class.
 
 The narrative spine of the course is *from raw traces to defensible claims*. Each group works through a single pipeline: raw source → operationalized clean object → baseline model with one sensitivity check → presentation.
 
@@ -32,5 +32,6 @@ The narrative spine of the course is *from raw traces to defensible claims*. Eac
 | Networks             | [projects/networks.md](projects/networks.md)                 | What is the relationship between gender and cross-program relations in high school?                        |
 | Messy web text       | [projects/messy_web_text.md](projects/messy_web_text.md)     | Do company sustainability pages differ linguistically from public-interest climate information pages?      |
 | Relational database  | [projects/relational_database.md](projects/relational_database.md) | Which driver, constructor, grid, circuit, and season characteristics are associated with F1 finishing points? |
-| Time series          | [projects/time_series.md](projects/time_series.md)           | How does an fMRI signal change across NSD scan sessions? |
+| Scientific programming | [projects/scientific_programming.md](projects/scientific_programming.md) | In one NSD session, are mean beta responses different in V1 and hV4? |
+| Time series          | [projects/time_series.md](projects/time_series.md)           | Is gaze movement lower while an NSD target image is on screen than nearby periods when it is not? |
 | API data             | [projects/api_data.md](projects/api_data.md)                 | Which study attributes are associated with completed versus ongoing clinical trials?                       |
