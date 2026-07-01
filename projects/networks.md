@@ -10,10 +10,10 @@
 
 ## Tutorial framing
 
-Network data are complex because observations are connected through ties, direction, weights, missing nodes, and dependence between relations rather than arriving as independent rows in a single analysis-ready table.
+Network data are complex because observations are connected through ties, direction, weights, missing nodes and ties, and dependence between relations rather than data structured as independent rows in a single analysis-ready table.
 
 Students should learn three main things about these data:
-1. How networks are represented through nodes, edges, edge lists, adjacency matrices, sparse matrices, GraphML, and choices about direction, weight, time, and isolates.
+1. How networks are represented through nodes, edges, edge lists, adjacency matrices, sparse matrices, GraphML, and how to make critical choices about direction, weight, time, and isolates.
 2. How to turn raw graph files into a clean network object while documenting what counts as a node, what counts as a tie, and which representation best matches the research question.
 3. How network dependence affects standard statistical assumptions, and how network statistics, reference models, permutation tests, or clustering can support claims about homophily, polarization, centrality, or other network structures.
 
@@ -39,28 +39,28 @@ Students should learn three main things about these data:
 
 
 ### Knowledge sources
-- C/R/Python packages `igraph`,
+- C/R/Python packages `igraph`
 - Introduction to networks
   - Chapter 0 of "A First Course in Network Science": https://github.com/CambridgeUniversityPress/FirstCourseNetworkScience/blob/master/sample/chapters/chapter0.pdf
   - App: https://javier.science/marimo_intro_networks/
 - Guide for reference models: https://pubmed.ncbi.nlm.nih.gov/34216192/
-- Observed network vs latent network: https://www.nature.com/articles/s41467-022-34267-9
+- Observed vs latent networks: https://www.nature.com/articles/s41467-022-34267-9
 
 
 ## Week-by-week
 ### Week 1:
 Begin with raw repository files and explain what the network is, who generated it, for what purpose, and the different storage formats.
 - Explain the underlying network in substantive terms: what the nodes and ties represent, and whether the graph is directed or undirected, weighted or unweighted, static or temporal.
-- What is GraphML? How does it relate to XML?
+- What is the GraphML data type? How does it relate to XML? How is this different from other network data types?
 - Are adjacency matrices sparse or dense?
-- Read about different layout algorithms.
+- Read about different visualization layout algorithms. Explore static/interactive visualization tools.
 
 
 Prepare for roundtable in week 2:
 - What is a network and why is it a useful representation of data?
-- What are the main ways to represent a network: edge lists, adjacency matrices, and XML or GraphML-like
+- What are the main ways to represent a network: edge lists, adjacency matrices, and XML or GraphML-like?
 - What are the advantages and disadvantages of adjacency matrices over edge lists? How do sparse matrices fix this and what are they?
-- How do you visualize a network?
+- How do you visualize a network? What could be the pitfalls of having your analysis based on the network visualization only?
 
 
 ### Week 2:
@@ -74,7 +74,7 @@ Operationalize the research question by turning raw graph files into a clean fil
 
 
 Prepare for roundtable in week 3:
-- Be able to describe three analyses typically done on networks (e.g. assortativity, centrality, clustering) at a conceptual level, so the rest of the class understands the landscape — but your own project should report only the one statistic and one permutation comparison committed to above.
+- Be able to describe three analyses typically done on networks (e.g. assortativity, centrality, clustering) at a conceptual level, so the rest of the class understands the landscape, but your own project should report only the one statistic and one permutation comparison committed to above.
 - Explain the selection vs influence debate in networks.
 
 

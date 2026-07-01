@@ -12,7 +12,7 @@
 Web text is complex because the data arrive wrapped in markup, navigation, scripts, boilerplate, duplicated page elements, and inconsistent page structure rather than as analysis-ready documents.
 
 Students should learn three main things about these data:
-1. How web text is produced and represented through HTML, DOM trees, URLs, HTTP requests and responses, CSS, JavaScript, metadata, and page templates.
+1. How web text is produced and represented through HTML, Document Object Model (DOM) trees, URLs, HTTP requests and responses, CSS, JavaScript, metadata, and page templates.
 2. How to turn raw pages into a clean corpus or analysis table by choosing a unit of analysis, extracting meaningful text, removing boilerplate, preserving source metadata, and documenting text-cleaning choices.
 3. How extraction, tokenization, repeated page elements, and publisher purpose affect linguistic features, models, visualizations, and the claims that can be made from a small web corpus.
 
@@ -21,7 +21,7 @@ Students should learn three main things about these data:
 | Dimension | This project teaches |
 |---|---|
 | Data structure | HTML documents, DOM trees, text corpus, nested page metadata, and document-feature or document-term representations (which are sparse matrices — the same data structure used for network adjacency). |
-| Storage system | Raw downloaded HTML files, with NoSQL/document-store storage such as MongoDB discussed as an optional comparison rather than a required implementation. |
+| Storage system | Raw downloaded HTML files, with NoSQL/document-store storage such as MongoDB (optional comparison rather than a required implementation). |
 | File formats | HTML, JSON metadata or exports, TXT, and CSV/RDS-style clean analysis outputs. |
 | Encoding | UTF-8 text, HTML markup, and JSON serialization for metadata or document-style records. |
 | Model | Group comparison, logistic or linear regression, clustering, or another small interpretable model using transparent text features. |
@@ -30,19 +30,20 @@ Students should learn three main things about these data:
 ## Resources
 ### Data sources
 - Raw HTML pages from corporate sustainability pages and public-interest climate information pages.
-- Possible corporate sources: Shell, ExxonMobil, TotalEnergies, or other firms identified through Orbis or a similar source. [TODO: to be downloaded before the course]
-- Possible public-interest sources: UN climate pages, National Geographic, government climate pages, or climate-focused NGOs.  [TODO]
+- Possible corporate sources: Shell, ExxonMobil, TotalEnergies, Siemens, Philips, or other firms identified through Orbis or a similar source. [TODO: to be downloaded before the course]
+- Possible public-interest sources: UN climate pages, National Geographic, government climate pages, or climate-focused NGOs (e.g., IPCC, Carbon Brief, EU Climate Pact).  [TODO]
 
 
 ### Knowledge sources
-- Basic HTML and DOM tutorials.
-- Python packages such as `requests`, `webSweep`, `beautifulsoup4`, TBD
-- R packages such as `rvest`, TBD
+- Basic HTML and DOM tutorials (e.g. [https://www.geeksforgeeks.org/html/html-tutorial/](https://www.geeksforgeeks.org/html/html-tutorial/), [https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/DOM_scripting](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/DOM_scripting)).
+- Python packages such as `requests`, `webSweep`, `beautifulsoup4`
+- R packages such as `rvest`, `httr`
 
 ## Week-by-week
 ### Week 1
 Inspect raw HTML, explain who published it and why, and identify the DOM structure and markup noise that matter for extraction.
 - What is HTML? How does it relate to CSS, JavaScript, and server-side systems such as PHP?
+- What are the main uses of HTML compared to other markup languages such as LaTeX, XML?
 - How do users and scripts interact with websites through HTTP or HTTPS requests?
 - What is the unit of raw data in this project: a page, a paragraph, a text block, a sentence, or something else?
 
@@ -55,9 +56,9 @@ Prepare for roundtable in week 2:
 ### Week 2
 Operationalize the question by turning raw pages into one analysis table with transparent text-cleaning choices.
 - What, exactly, counts as corporate climate communication or public-interest climate communication?
-- Which parts of each page should be kept or removed: headers, menus, cookie banners, captions, footers, links, boilerplate, and repeated slogans?
+- Which parts of each page should be kept or removed (e.g., headers, menus, cookie banners, captions, footers, links, boilerplate, and repeated slogans)?
 - Which text representation fits the research question? Start with a transparent count-based or TF-IDF representation. Embeddings are an **optional** extension only if time allows and only after a count/TF-IDF baseline has been built and interpreted.
-- The document-term matrix you build is typically extremely sparse (most documents do not contain most terms). This is the same sparse-matrix concept that the Networks group teaches with adjacency matrices — note this connection so the two groups can teach it jointly.
+- The document-term matrix you build is typically extremely sparse (most documents do not contain most terms). This is the same sparse-matrix concept that the Networks group teaches with adjacency matrices. Note this connection so the two groups can teach it jointly.
 - **Optional cross-modality reflection:** how is turning text into a model table similar to turning images, audio, or video into model inputs (pixels, spectrograms, frames, embeddings, labels, or extracted features)? Skip if time is tight.
 - What source metadata should stay attached to each unit, such as publisher type, URL, date collected, page title, or page section?
 
