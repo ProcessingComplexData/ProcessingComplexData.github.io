@@ -1,122 +1,266 @@
-# Time Series Project: Scientific Data Standards and Temporal Signals
+# Time Series Project: Eye Tracking Signals and Filtering
 
-- Project name: `scientific_time_series`
-- Research question (example): __How does a signal change over time within a participant, task, or experimental condition?__
-- Programming language: **`Python` suggested for raw-data processing** (BIDS/NIfTI/event-file handling: `nibabel`, `pybids`, `nilearn`, `numpy`, `pandas`, and the NSD-specific `nsdcode` / `nsd_access`). **`R` suggested for the modeling and analysis stage** (`lme4`, `nlme`, `tidyverse`) once Week 2 has produced the participant-session-ROI panel. Students may stay in one language throughout if they prefer, but the default split is Python → panel → R.
-- Expert contact: TBD, Ben Harvey?
+- Project name: `nsd_eye_tracking_time_series`
+- Research question: __During repeated Natural Scenes Dataset (NSD) image presentations, is gaze movement lower while the target image is on screen than during nearby periods when that target is not on screen?__
+- Optional extension: __Does the filtered pupil-size signal change in the seconds after image onset?__
+- Programming language: `R` suggested. 
+- Expert contact: TBD, Roy Hessels?
 
 > **Canonical course conventions live in [project_guidelines.md](../project_guidelines.md).** That file is the source of truth for the four required workflow files (`week1_explore.qmd`, `week2_operationalize_clean.qmd`, `week3_model.qmd`, `week4_storytelling.qmd`), the `data/model_data.rds` -> `data/model_results.rds` pipeline, the raw-data policy, quality-check requirements, decision logs, and contribution tracking. Read it before starting and treat anything below as project-specific guidance on top of those conventions.
 
+![NSD eye-tracking movement over repeated image presentations](/assets/img/projects/nsd_eye_tracking_repetition_trace_check.png)
+
+*Example from an NSD eye-tracking run: gaze traces from six usable 3-second repeated presentations of the same target image. Each panel maps gaze onto the actual image as a 4.0 x 4.0 degree square, matching the helper relationship `x_plot = (x + 2) / 4` and `y_plot = (2 - y) / 4`. Color shows seconds after image onset; white and black dots mark the first and last usable samples.*
+
 ## Tutorial framing
 
-Scientific time-series data are complex because observations are ordered, repeated, metadata-dependent, and often stored in domain-specific standards designed for reproducibility rather than immediate analysis as a flat table.
+Eye-tracking is a good time-series project because the raw object is a dense
+signal: time, horizontal gaze, vertical gaze, pupil area, blinks, saccades, and
+task messages. The small scientific question is about movement during image
+viewing. The programming lesson is how to access and turn raw signal files into a regular, filtered, event-aligned time series.
 
-Students should learn three main things about these data:
-1. How scientific time-series data are represented through samples, events, timestamps, participant metadata, task metadata, calibration or acquisition settings, and standards such as BIDS-style folder structures, NIfTI, EDF/ASC, TSV sidecars, JSON metadata, HDF5, or NetCDF.
-2. How to turn a raw temporal scientific object into an analysis-ready panel or time-series table by defining the signal, unit of analysis, time window, alignment rule, missing-data rule, and feature extraction choices.
-3. How temporal dependence, sampling rate, smoothing, aggregation, lag construction, and scientific metadata affect modeling, visualization, assumptions, and the claims that can be made from the data.
+Students should learn four things:
+
+1. How eye-tracking data are represented as samples, event intervals, task
+   messages, device-specific files, and inspection plots.
+2. Why file formats matter: raw EyeLink EDF files, NSD's MATLAB `.mat`
+   preprocessing, and a student-created RDS cache expose different parts of the
+   provenance chain.
+3. How filters work on a noisy signal. Students should compare a raw trace with
+   at least two simple filters, then choose one filter for the analysis.
+4. How to fit a tiny time-series model that accounts for autocorrelation instead
+   of assuming that each sample is independent.
+
+The core research question is intentionally modest:
+
+> Is the filtered gaze-velocity signal lower during target-image viewing windows
+> than during nearby periods when that target is not on screen?
+
+The project should not become a full psychology project about why someone looked
+at a particular surfer, object, or region. It should also not make preprocessing
+the research question. Filtering is part of the method. A filter-width change can
+be a sensitivity check, but the main question is about gaze movement during an
+experimental event.
+
+The fixation/saccade literature is still useful, but mainly as a warning about
+language. If students label low-velocity periods, they should call them
+computational candidates and report the rule. They should not claim that their
+code has discovered true fixations.
 
 ## Peer-teaching checklist
 
 | Dimension | This project teaches |
 |---|---|
-| Data structure | Time-indexed samples or events, multivariate time series, participant/task metadata, and possibly spatiotemporal arrays. |
-| Storage system | Scientific repository or instructor-provided raw dataset organized through a scientific data standard. |
-| File formats | One chosen standard such as BIDS with NIfTI/TSV/JSON sidecars, EDF/ASC eye-tracking exports, HDF5, NetCDF, or comparable domain files. |
-| Encoding | Text metadata or event files, JSON sidecars, and binary scientific signal formats. |
-| Model | Group comparison of extracted temporal features, linear or mixed model, lagged regression, simple classifier, or time-window comparison. |
-| Key aspects to explain | Temporal order, sampling rate, alignment, smoothing, aggregation windows, missing segments, lag construction, scientific metadata, and sensitivity to preprocessing choices. |
+| Data structure | Regularly sampled gaze and pupil time series, missing samples, event windows, blink/saccade intervals, and run-level metadata. |
+| Storage system | Scientific repository on AWS plus a small local RDS cache created from the NSD MATLAB file. |
+| File formats | EyeLink `.edf`, MATLAB `.mat`, JPG inspection plots, PNG stimulus images, and RDS/CSV outputs created by students. |
+| Encoding | Binary eye-tracker files, MATLAB arrays, numeric time-series tables, and image-based quality-control plots. |
+| Model | A small AR(1)/ARIMA-style model with an event indicator: filtered gaze velocity as the outcome and `image_on` as an external regressor. |
+| Key aspects to explain | Sampling rate, missing samples, blinks, filtering, velocity, event alignment, autocorrelation, AR(1) errors, aggregation to 100 ms bins, one continuous modeling segment, and sensitivity to one filtering choice. |
 
 ## Resources
 ### Data source
 
-The practical is built around fMRI data. European fMRI datasets are difficult to share publicly: anything that reveals the detailed structure of an individual brain — including raw fMRI volumes — is typically considered individually identifiable under the GDPR and cannot be released openly. The practical therefore uses an American dataset that is shareable.
+Use the [**Natural Scenes Dataset (NSD)**](https://naturalscenesdataset.org/) eye-tracking data so this project shares
+provenance with the neuroimaging project but teaches a different data structure.
+NSD access requires accepting the [NSD data terms](https://docs.google.com/forms/d/e/1FAIpQLSduTPeZo54uEMKD-ihXmRhx0hBDdLHNsVyeo_kCb8qbyAkXuQ/viewform).
 
-Primary dataset: **Natural Scenes Dataset (NSD)** — a high-resolution 7T fMRI dataset of individuals viewing thousands of natural images, with raw BIDS files, prepared NIfTI files, repeated scan sessions, visual ROI masks, behavioral/task event files, and extensive documentation. Access is public through AWS Open Data after signing the NSD data access agreement.
+Start with one subject, one run, and one repeated target image. A good teaching
+subset is:
 
-- Dataset and documentation: https://naturalscenesdataset.org/
-- Main reference paper: Allen et al. (2022), Nature Neuroscience. https://doi.org/10.1038/s41593-021-00962-x
-- Session-drift / repeated-measures reference (a useful precedent for the kind of question students can replicate): https://doi.org/10.1038/s41467-023-40144-w
+- Preprocessed subject-level MATLAB file:
+  `s3://natural-scenes-dataset/nsddata_timeseries/ppdata/subj01/eyedata_preprocessed.mat`
+- Raw EyeLink folder to list and discuss, not fully parse:
+  `s3://natural-scenes-dataset/nsddata_timeseries/ppdata/subj01/eyedata/`
+- Eye-tracking inspection plots:
+  `s3://natural-scenes-dataset/nsddata/inspections/eyetrackinginspections/pupil_subj01_nsdimagery_run01.jpg`
+  and
+  `s3://natural-scenes-dataset/nsddata/inspections/eyetrackinginspections/XY_subj01_nsdimagery_run01.jpg`
+- NSD imagery design files:
+  `s3://natural-scenes-dataset/nsddata/experiments/nsdimagery/designmatrixGLMsingle.mat`
+  and the relevant pair-list file, such as `B_pair_list.mat`
+- One or a few small target images from:
+  `s3://natural-scenes-dataset/nsddata/experiments/nsdimagery/rawtargetimages/`
 
-### Candidate research question
+Here "repeated target image" means that the same stimulus appears multiple times
+within the run. In the example figure, `shared0385_nsd28752.png` is scheduled at
+eight separate onsets in run 2. Each onset starts a 3-second image-presentation
+period, followed by a 1-second rest/fixation period. These are repeated
+presentations of the same image, not eight different screen regions.
 
-Good fMRI research has moved well beyond simple summaries — current work uses complex models of neural responsivity, not toy questions. Students do not need to invent a new contribution. Instead they can replicate one of two well-established demonstrations, both supported directly by NSD:
+Do **not** download the full 37 GB `nsd_stimuli.hdf5`, all subjects, all EDF
+files, or any fMRI beta files for this project.
 
-1. Response amplitudes in a visual ROI vary across scan sessions for one participant (the session-drift / repeated-measures phenomenon documented in the reference above).
-2. Animate versus inanimate object categories produce distinguishable responses in many brain areas.
-
-Either question keeps the project at a defensible size, foregrounds the BIDS/NIfTI raw object, and gives students something real to learn rather than a manufactured small question.
-
-### Alternative: NSD eye-tracking data
-
-If a group has a strong eye-tracking reason to deviate, NSD also includes eye-tracking data on AWS, which keeps the dataset and provenance story consistent:
-
-- Raw EyeLink files per run: `s3://natural-scenes-dataset/nsddata_timeseries/ppdata/subj01/eyedata/` (e.g. `eyedata_nsdimagery_run01.edf`)
-- Preprocessed eye-tracking file per subject: `s3://natural-scenes-dataset/nsddata_timeseries/ppdata/subj01/eyedata_preprocessed.mat` (~162 MB for `subj01`)
-- Eye-tracking inspection plots: `s3://natural-scenes-dataset/nsddata/inspections/eyetrackinginspections/` (e.g. `pupil_subj01_nsdimagery_run01.jpg`)
-
-This is the fallback path, not the default. The main practical is fMRI.
+The raw `.edf` files are the device-native EyeLink recordings. They are important
+for provenance and for the Week 1 open-format discussion. They are not the
+recommended main input because direct EDF parsing in R adds too much tool
+friction. The `.mat` file is the practical starting point because it preserves
+the time-series structure students need while keeping the course workflow small.
 
 ### Knowledge sources
-- BIDS documentation for neuroimaging data organization and metadata.
-- Basic introductions to NIfTI, JSON sidecars, events files, and participant metadata.
-- NSD documentation, the main paper (https://doi.org/10.1038/s41593-021-00962-x), and the session-drift paper (https://doi.org/10.1038/s41467-023-40144-w) on the dataset page.
-- Python packages for raw-data processing: `nibabel` and `nilearn` for NIfTI/ROI handling, `pybids` for BIDS queries, `numpy`, `pandas`, `matplotlib`, the official NSD `nsdcode`, and community helpers such as `nsd_access` or `nsdget`.
-- R packages for the modeling stage (after the panel is built): `lme4` or `nlme` for mixed models, `broom.mixed` for tidy output, `tidyverse` for wrangling, and `ggplot2` for visualization.
 
-### Teaching angle
-- Week 1: inspect BIDS metadata, events TSV files, NIfTI headers, ROI masks, and the AWS scientific repository structure.
-- Week 2: extract a participant-session-ROI panel from NIfTI arrays.
-- Week 3: fit a within-subject model that addresses one of the two candidate questions (session drift or animate-vs-inanimate distinction) and one sensitivity check tied to the operationalization.
-- Week 4: visualize the result and explain what was gained and lost by reducing voxelwise fMRI maps to the summary used.
+- Roy Hessels and Ignace Hooge PEP assignments 6 and 7: gaze traces, velocity,
+  filtering, and careful inspection.
+- Hessels et al. (2018), "Is the eye-movement field confused about fixations and
+  saccades?", doi: [https://doi.org/10.1098/rsos.180502](https://doi.org/10.1098/rsos.180502), for the warning that fixation/saccade definitions must be explicit.
+- Hooge et al. (2022), "Fixation classification: how to merge and select fixation
+  candidates", doi: [https://doi.org/10.3758/s13428-021-01723-1](https://doi.org/10.3758/s13428-021-01723-1), for why selection rules should be reported if candidates are used.
+- R packages: `R.matlab`, `dplyr`, `tidyr`, `ggplot2`, `readr`.
+- Useful base R functions: `diff()`, `stats::filter()`, `stats::runmed()`,
+  `stats::acf()`, `stats::arima()`, `is.finite()`, and `aggregate()`.
+- Optional package if students want a more familiar ARIMA interface: `forecast`.
 
+### Filter choices
+
+Students should learn what filters do before applying one:
+
+- A **moving average** smooths high-frequency jitter but blurs fast movements and
+  creates edge artifacts.
+- A **median filter** is robust to isolated spikes but can flatten sharp changes.
+- A **low-pass filter** keeps slow movement and removes fast jitter, but students
+  must explain the cutoff frequency if they use one.
+
+For the class version, require one simple filter for the final analysis. A
+centered moving average over 5 to 11 samples is enough. The sensitivity check can
+be a second window width, not a large preprocessing contest.
 
 ## Week-by-week
 ### Week 1
-Start from the raw scientific files, identify the data-generating process, and explain why the data are stored in a standard rather than in one analysis-ready table.
-- What is the scientific object: gaze samples, fixation events, fMRI volumes, task events, or participant-level metadata?
-- What is the storage standard or raw format, and which files belong together?
-- What is the sampling rate or temporal resolution, and how is time represented?
-- Which metadata are required to interpret the signal correctly?
+
+Start from the AWS repository and the downloaded `.mat` file. The goal is to
+understand what the raw scientific object is before filtering anything.
+
+Week 1 exact data checklist:
+
+- Read and accept the [NSD data terms](https://docs.google.com/forms/d/e/1FAIpQLSduTPeZo54uEMKD-ihXmRhx0hBDdLHNsVyeo_kCb8qbyAkXuQ/viewform).
+- Download `eyedata_preprocessed.mat` for `subj01`.
+- Download the two inspection JPGs for one run.
+- List the raw EDF folder, but do not download every EDF file.
+- Download only the small `nsdimagery` design/pair-list files needed to identify
+  one repeated target-image window.
+- Download one small target PNG if the group wants to make an overlay.
+- Save a small cached extract such as `data/model_data.rds` only after students
+  have documented which raw fields it came from.
+
+Week 1 questions:
+
+- What is one row in the sample table?
+- What is the sampling rate after preprocessing? 
+- Is the `valid_ratio_pct` reported for this run compatible with the actual missingness?
+- Which columns represent time, x gaze, y gaze, and pupil area?
+- Which file tells us when the target image is on screen?
+- What is a target-image presentation, and how is it different from a screen
+  region or image file?
+- Which data are samples, which are events, and which are inspection plots?
 
 Prepare for roundtable in week 2:
-- Explain why temporal order is itself a data structure and why it cannot be treated like independent rows.
-- Explain what a scientific data standard is and why standards such as BIDS, NIfTI plus JSON sidecars, EDF/ASC exports, HDF5, or NetCDF exist.
-- Explain the difference between raw measurements, task events, derived features, and analysis-ready summaries.
-- Explain one provenance or power issue: who was measured, under what task or device constraints, and what is invisible in the recorded signal?
+
+- Explain why eye tracking is a time-series data structure rather than an
+  independent-row table.
+- Explain the provenance chain EDF -> `.mat` -> RDS. Which decisions are visible
+  at each step, and which are harder to audit?
+- Explain why blinks and tracking loss are not ordinary missing values.
+- What does the device-native EDF file preserve, what does the NSD `.mat`
+  preprocessing make easier, and what are the consequences of relying on
+  proprietary binary formats rather than open, documented, analysis-ready
+  formats?
+- Explain why a project can analyze gaze velocity without claiming to classify
+  true fixations or saccades.
 
 ### Week 2
-Operationalize the research question by turning the raw scientific files into one analysis-ready time-series or panel object.
-- What, exactly, is the outcome signal: gaze position, fixation duration, pupil size, regional fMRI signal, task response, or another feature?
-- What is the unit of analysis: sample, event, time window, trial, participant, region, or participant-condition?
-- How should time be aligned across participants, trials, regions, or task events?
-- How should gaps, blinks, missing volumes, noisy segments, or implausible values be handled?
+
+Operationalize the research question by building one small, regular time-series
+table.
+
+- Choose one subject and one run.
+- Use the `nsdimagery` design file to create an `image_on` indicator for the
+  selected target-image windows.
+- Convert time to seconds from run start.
+- Mark valid samples where x, y, and pupil area are finite.
+- Compute gaze displacement and velocity from x/y using `diff()`.
+- Aggregate or resample to 100 ms bins to keep the model small.
+- For plotting, keep small event windows around presentations, such as 3 seconds
+  before image onset through 3 seconds after image offset.
+- Plot raw velocity and at least two filtered versions.
+- For the AR(1) model, keep one continuous segment spanning the first selected
+  target onset through the last selected target offset, plus a small margin. Do
+  not paste separate event windows together and then treat them as adjacent time
+  points.
+- Choose one filter for the final model, such as an 11-sample moving average.
+- Create `log_velocity_filtered = log1p(velocity_filtered)` so the highly
+  skewed velocity signal is easier to model.
+- Save `data/model_data.rds` with only the columns needed for Week 3:
+  `time_sec`, `event_id`, `time_from_onset`, `image_on`, `valid_fraction`,
+  `velocity_raw`, `velocity_filtered`, `log_velocity_filtered`, and optional
+  `pupil_filtered`.
 
 Prepare for roundtable in week 3:
-- Explain how aggregation, smoothing, filtering, baseline correction, lag construction, or feature extraction changed the raw signal.
-- Explain what is gained and lost when a rich temporal object is reduced to windows, averages, slopes, or event-level summaries.
-- Explain one alternative cleaning choice and how it could affect the result.
+
+- Explain what are the possible filters, what each filter did to the trace and why the chosen one is reasonable.
+- Explain why filtering can remove jitter but can also blur fast movements.
+- Explain how the `image_on` variable was made from the design file.
+- Explain why nearby periods from the same continuous run are a better
+  comparison than unrelated parts of the recording.
 
 ### Week 3
-Fit a simple within-subject model on the panel from Week 2, evaluate it, and show one sensitivity check to a processing choice that is actually present in your pipeline. The specific model depends on which of the two candidate RQs the group chose:
 
-- If the question is **session drift in a visual ROI** (RQ 1): fit a linear or mixed model of mean ROI beta on session number for one participant, and the key parameter is the session slope. Sensitivity: alternative ROI definition (V1v vs. V1d vs. combined V1), alternative session-aggregation window, or alternative missing-session rule.
-- If the question is **animate vs. inanimate distinguishability** (RQ 2): fit a group comparison or a simple classifier on trial- or condition-level ROI responses, and the key parameter is the contrast / classification metric. Sensitivity: alternative ROI choice, alternative trial selection, or alternative animacy labeling rule.
+Fit a small time-series model. Do not fit ordinary sample-level OLS as the main
+model, because adjacent samples are autocorrelated.
 
-Common prompts for both RQs:
-- Is the goal association, prediction, or causal effect? (For both candidate RQs this is a descriptive within-subject question.)
-- Which model is small enough to explain clearly given that the temporal index is sessions or trials, not raw samples?
-- Which parameter answers the substantive research question, and what would a null result actually look like?
+Recommended model:
+
+```r
+fit_data <- model_data[
+  is.finite(model_data$log_velocity_filtered) &
+    is.finite(model_data$image_on),
+]
+
+fit <- arima(
+  fit_data$log_velocity_filtered,
+  order = c(1, 0, 0),
+  xreg = fit_data$image_on
+)
+```
+
+Here `order = c(1, 0, 0)` is an AR(1) model: the current value is allowed to
+depend on the previous value. The `image_on` coefficient answers the simple
+research question. A negative coefficient means gaze movement is lower while the
+target image is on screen, after accounting for short-range autocorrelation.
+Use a continuous, equally spaced time series for this model. Event-aligned
+windows are useful for visualization, but they should not be concatenated for the
+AR(1) fit.
+
+Show:
+
+- the autocorrelation plot of `log_velocity_filtered`;
+- a naive mean difference for intuition;
+- the AR(1) estimate for `image_on`;
+- one sensitivity check using a different filter width.
+- Save the `model_results.rds` for next week's storytelling.
+
+Avoid a black-box `auto.arima()` search unless the group can explain why it chose
+the final model. A fixed AR(1) is enough for this course.
 
 Prepare for roundtable in week 4:
-- Explain why the temporal index here is session order (RQ 1) or trial structure (RQ 2), not within-trial autocorrelation, and what that implies for which "time-series" concepts apply and which don't.
-- Explain how within-subject repeated measurement creates dependence that ordinary i.i.d. regression ignores, and how a mixed model or paired comparison addresses it.
-- Explain how the model uses the extracted signal (session-mean beta in an ROI, or condition-level ROI response) and what parts of the original scientific object (voxel-level structure, trial-level events, full BOLD time series) it ignores.
-- Explain why sensitivity to ROI choice, aggregation level, and labeling rules is central rather than optional in this kind of work.
+
+- Explain what autocorrelation means in this signal.
+- Explain why an AR(1) model is already more time-series-aware than ordinary OLS.
+- Explain which parameter answers the research question and why.
+- Explain what changed, if anything, when the filter width changed.
 
 ### Week 4
-Visualize and tell a story about the within-subject result while making the data standard, preprocessing, and model assumptions explicit.
-- What is the context? What is the main result? Why is it important?
-- Which visualizations best separate raw NIfTI data, the ROI-aggregated summary, and the fitted model? For RQ 1: a per-session line/dot plot of mean beta per ROI with the fitted slope and an uncertainty band. For RQ 2: ROI-level mean response by animacy category, with appropriate uncertainty.
-- Which scientific metadata or preprocessing choices (BIDS structure, ROI definition, beta version, session/trial filter, animacy labels) are necessary for someone else to reproduce the result?
-- What are the assumptions and limitations of your design, especially the move from voxelwise fMRI to ROI-level summaries?
+
+Visualize and tell a story about the time-series pipeline.
+
+- Show the raw gaze trace or velocity trace.
+- Show the chosen filtered trace.
+- Show the target-image windows as shaded regions on the time axis.
+- Show the event-aligned average of filtered velocity around image onset.
+- Show the AR(1) model results and explain in plain language.
+- Optionally show the gaze overlay on the target image as a sanity check.
+
+The final story should make a course-level argument:
+
+> A time-series result is not only a model output. It depends on the raw file
+> format, sampling rate, missing-data handling, filtering, event alignment,
+> autocorrelation, and the exact comparison window.
