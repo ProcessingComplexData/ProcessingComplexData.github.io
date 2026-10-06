@@ -63,7 +63,8 @@ code has discovered true fixations.
 
 Use the [**Natural Scenes Dataset (NSD)**](https://naturalscenesdataset.org/) eye-tracking data so this project shares
 provenance with the neuroimaging project but teaches a different data structure.
-NSD access requires accepting the [NSD data terms](https://docs.google.com/forms/d/e/1FAIpQLSduTPeZo54uEMKD-ihXmRhx0hBDdLHNsVyeo_kCb8qbyAkXuQ/viewform).
+NSD access requires accepting the [NSD data access agreement](https://docs.google.com/forms/d/e/1FAIpQLSduTPeZo54uEMKD-ihXmRhx0hBDdLHNsVyeo_kCb8qbyAkXuQ/viewform).
+
 
 Start with one subject, one run, and one repeated target image. A good teaching
 subset is:

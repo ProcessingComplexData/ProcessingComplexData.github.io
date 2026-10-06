@@ -2,6 +2,9 @@
 
 - Project name: `clinical_trials_api`
 - Research question (example): __Which study attributes are associated with completed versus ongoing clinical trials in a topic area such as depression?__
+
+or __Among completed depression trials, which attributes are associated with posting results on ClinicalTrials.gov, and did the US reporting law (FDAAA, 2007) change this?__
+
 - Programming language: `R` (suggested) or `python` (allowed)
 - Expert contact: `Javier Garcia-Bernardo`
 
@@ -31,7 +34,6 @@ Students should learn three main things about these data:
 ### Data sources
 - [ClinicalTrials.gov API documentation](https://clinicaltrials.gov/data-api/api): official documentation for the modern ClinicalTrials.gov REST API.
 - [ClinicalTrials.gov API v2 endpoint](https://clinicaltrials.gov/api/v2/studies): main studies endpoint used for search queries.
-- [ClinicalTrials.gov OpenAPI specification](https://clinicaltrials.gov/api/oas/v2/ctg-oas-v2.yaml): machine-readable API specification.
 - [ClinicalTrials.gov study data structure](https://clinicaltrials.gov/data-api/about-api/study-data-structure): field-level explanation of study records.
 - [ClinicalTrials.gov API reference notes](https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/skills/scientific/clinicaltrials-database/references/api_reference.md?plain=1): practical notes on pagination, `pageSize`, `pageToken`, and handling `429` responses.
 
@@ -50,7 +52,7 @@ Alternative API source if ClinicalTrials.gov becomes impractical: Wikimedia APIs
 Start from the ClinicalTrials.gov endpoint, inspect the API documentation and raw JSON, and download a cached sample using a polite paginated request workflow.
 - What is the base URL, endpoint, and query used to collect the studies?
 - Which query parameters matter: condition, status, phase, sponsor, location, `pageSize`, `pageToken`, fields, and format?
-- What is the raw response structure, and where are the study records, pagination token, and metadata stored?
+- What is the raw response structure, and where are the study records, pagination token, and metadata stored? What is the missingness pattern?
 - How should the script wait between requests, cache each raw response, and respond if the API returns `429 Too Many Requests`?
 
 Prepare for roundtable in week 2:
@@ -64,9 +66,9 @@ Operationalize the research question by flattening the nested API records into o
 - Is the question about association, prediction, or causal effect?
 - What counts as one observation: a study, sponsor-study, condition-study, location-study, arm, outcome, or posted result?
 - Which fields are needed: NCT ID, status, sponsor class, study type, phase, enrollment, start year, condition, intervention type, country, or whether results are posted?
-- How should repeated fields be handled, such as multiple conditions, phases, sponsors, locations, arms, or outcomes?
+- How should repeated fields be handled, such as multiple conditions, phases, sponsors, locations, arms, or outcomes? Explain the quality checks done (e.g. "impossible" years)
 - Connect to what the relational-database group taught in the Week 2 roundtable: ClinicalTrials.gov returns deeply nested JSON, which fits a document-store (NoSQL) model like MongoDB much more naturally than a normalized relational schema. Be ready to explain when a NoSQL/document store is the right choice (heterogeneous, nested, schema-flexible records; rapidly evolving fields; whole-document reads), and when a relational database is preferable (strong joins across well-defined entities; transactional integrity; constrained schema). Cite at least one concrete advantage and one concrete disadvantage of each.
-- **[TODO before course starts, maybe for the relational data project instead of here]** Load a subset of the cached ClinicalTrials.gov JSON into a small MongoDB instance so students can run a few document queries (find by condition, project specific fields, count by status) and contrast that experience with relational SQL queries on the same conceptual data. This makes the relational-vs-document comparison hands-on rather than purely conceptual.
+- Load a subset of the cached ClinicalTrials.gov JSON into a small MongoDB instance and run a few document queries (find by condition, project specific fields, count by status) and contrast that experience with relational SQL queries on the same conceptual data.
 
 Prepare for roundtable in week 3:
 - Explain the basic API-to-table pipeline: request, wait, cache, parse JSON, flatten nested modules, type-convert fields, and save the clean table.
