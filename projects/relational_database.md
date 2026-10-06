@@ -1,7 +1,7 @@
 # Relational Database Project: Formula 1 Race History
 
 - Project name: `f1_race_history`
-- Research question (example): __Which driver, constructor, grid, circuit, and season characteristics are associated with Formula 1 finishing points?__
+- Research question (example): __Which driver, constructor, grid, circuit, and season characteristics are associated with a driver scoring points in a Formula 1 Grand Prix (2010–2025)?__
 - Programming language: `R` + PostgreSQL (suggested) or `python` (allowed)
 - Expert contact: TBD
 
@@ -37,14 +37,14 @@ Alternative data sources only if F1DB becomes impractical: Lahman Baseball Datab
 
 ### Knowledge sources
 - SQL concepts: `SELECT`, `JOIN`, `GROUP BY`, `WHERE`, `HAVING`, views, indices, primary keys, foreign keys, and common table expressions.
-- PostgreSQL concepts: schemas, SQL dumps, `psql`, table constraints, views, indices, and `EXPLAIN`.
+- PostgreSQL concepts and [documentation](https://www.postgresql.org/docs/): schemas, SQL dumps, `psql`, table constraints, views, indices, and `EXPLAIN`.
 - R packages `DBI`, `RPostgres`, `dbplyr`, `dplyr`, `dm`, and `arrow`.
 - F1DB documentation and release notes for understanding available formats and updates.
 - Parquet as a columnar storage alternative to discuss when contrasting analytical storage with relational database storage.
 
 ## Week-by-week
 ### Week 1
-Start from the raw PostgreSQL SQL dump, identify the schema, and explain why the data are stored relationally rather than as one flat file.
+Start from the raw PostgreSQL SQL dump, identify the schema, document which data release are you using, and explain why the data are stored relationally rather than as one flat file.
 - What are the main tables, and what real-world entities do they represent?
 - Which columns are primary keys, foreign keys, or plausible join keys?
 - Which relationships are one-to-many or many-to-many?
@@ -54,7 +54,7 @@ Start from the raw PostgreSQL SQL dump, identify the schema, and explain why the
 Prepare for roundtable in week 2:
 - Explain schemas, primary keys, foreign keys, one-to-many relationships, and many-to-many relationships in a way that other groups can understand.
 - Explain why the data are stored in a relational database rather than in one flat file, including the role of SQL, views, indices, and transaction-oriented database storage.
-- Explain how a database actually executes a join or a selective `WHERE`/key lookup under the hood. Cover hash indexes and hash joins specifically: how a hash table maps keys to row locations in O(1) average lookup, why hash joins are efficient for large equality joins, and how this relates to B-tree indexes for range queries. This gives the other groups a concrete picture of why "schemas + indexes" is faster than scanning a CSV.
+- Explain how a database actually executes a join or a selective `WHERE`/key lookup under the hood, to give the other groups a concrete picture of why "schemas + indexes" is faster than scanning a CSV.
 - Compare row-based relational storage with columnar or analytical storage: when would PostgreSQL, CSV, Excel, RDS, or Parquet be more appropriate?
 - Explain what can go wrong when joins duplicate rows, drop rows, or silently change the unit of analysis.
 - Explain one provenance or power issue: who generated the records, for what institutional purpose, and which processes are invisible in the database.
@@ -82,7 +82,7 @@ Fit a small model on the joined Week 2 data, evaluate it, and show one sensitivi
 
 Prepare for roundtable in week 4:
 - Explain how the model depends on the join pipeline rather than only on the final table.
-- Explain why the model is usually a descriptive or predictive summary of organizational data rather than automatic evidence of a causal process.
+- Explain why the model is usually a descriptive or predictive summary of organizational data rather than evidence of a causal process.
 - Explain what assumptions are hidden in the database schema, missing records, and aggregation choices.
 
 ### Week 4
